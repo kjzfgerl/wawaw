@@ -22,6 +22,39 @@
 
         // Code pour envoyer le message à l'API de traitement de langage naturel ici
         // et afficher la réponse dans le chat log
+          var messageInput = document.querySelector("#message");
+  var chatLog = document.querySelector("#chat-log");
+  document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var message = messageInput.value;
+    chatLog.innerHTML += "<p>Vous : " + message + "</p>";
+    messageInput.value = "";
+
+    // Envoyer le message à l'API
+    fetch("https://api.openai.com/v1/engines/davinci-codex/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer <INSERT YOUR API KEY HERE>"
+      },
+      body: JSON.stringify({
+        "prompt": message,
+        "max_tokens": 512
+      })
+    })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(response) {
+      var responseMessage = response.choices[0].text;
+      chatLog.innerHTML += "<p>AI: " + responseMessage + "</p>";
+    })
+    .catch(function(error) {
+      console.log("Error:", error);
+    });
+  });
+
+        
       });
     </script>
   </body>
