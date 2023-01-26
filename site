@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mon site de chat</title>
+  </head>
+  <body>
+    <h1>Bienvenue sur mon site de chat</h1>
+    <form>
+      <label for="message">Entrez votre message :</label>
+      <input type="text" id="message" name="message">
+      <button type="submit">Envoyer</button>
+    </form>
+    <div id="chat-log"></div>
+    <script>
+      var messageInput = document.querySelector("#message");
+      var chatLog = document.querySelector("#chat-log");
+      document.querySelector("form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        var message = messageInput.value;
+        chatLog.innerHTML += "<p>Vous : " + message + "</p>";
+        messageInput.value = "";
+
+        // Code pour envoyer le message à l'API de traitement de langage naturel ici
+        // et afficher la réponse dans le chat log
+      });
+    </script>
+  </body>
+</html
